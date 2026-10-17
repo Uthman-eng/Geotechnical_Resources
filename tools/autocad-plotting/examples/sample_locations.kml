@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Example Google Earth export. Replace with your own .kml file. Locations are fictional. -->
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document>
+    <name>Example GI Locations</name>
+    <Folder>
+      <name>Boreholes</name>
+      <Placemark><name>BH01</name><Point><coordinates>-1.4300,53.2800,0</coordinates></Point></Placemark>
+      <Placemark><name>BH02</name><Point><coordinates>-1.4285,53.2806,0</coordinates></Point></Placemark>
+      <Placemark><name>BH03</name><Point><coordinates>-1.4270,53.2799,0</coordinates></Point></Placemark>
+    </Folder>
+    <Folder>
+      <name>Trial Pits</name>
+      <Placemark><name>TP01</name><Point><coordinates>-1.4292,53.2794,0</coordinates></Point></Placemark>
+      <Placemark><name>TP02</name><Point><coordinates>-1.4278,53.2810,0</coordinates></Point></Placemark>
+    </Folder>
+  </Document>
+</kml>

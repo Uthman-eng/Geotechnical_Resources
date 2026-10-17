@@ -1,0 +1,3 @@
+# Paste one URL per line below, then run:  python download_pdfs.py
+# Lines starting with # are ignored. Example (BGS scanned borehole log):
+https://api.bgs.ac.uk/sobi-scans/v1/borehole/scans/items/212929

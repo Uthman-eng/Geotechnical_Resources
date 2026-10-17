@@ -218,3 +218,10 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# ---- Geotechnical_Resources ----
+# Script outputs (generated - don't commit)
+outputs/
+# Keep real project data out of the repo - use sample_data/ with fictional data only
+*.dwg
+*.bak

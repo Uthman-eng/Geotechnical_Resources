@@ -1,0 +1,14 @@
+# Core libraries used across the repo:  pip install -r requirements.txt
+pandas
+pyproj
+geopandas
+python-ags4
+matplotlib
+openpyxl
+pypdf
+
+# Notebooks (optional)
+jupyter
+
+# AutoCAD plotting - Windows + full AutoCAD only. Install separately:
+#   pip install pyautocad
