@@ -1,0 +1,72 @@
+Useful APIs
+British Geological Survey (BGS) API
+Use the BGS API documentation to find available data collections and download options.
+Example: Onshore Borehole Index
+https://ogcapi.bgs.ac.uk/collections/onshoreboreholeindex/items?f=csv&limit=100&bbox=-1.47,53.27,1.37,53.29
+To search a different area, replace the four bbox values with the coordinates for your area:
+https://ogcapi.bgs.ac.uk/collections/{collection}/items?f=csv&limit={number_of_records}&bbox={west},{south},{east},{north}
+The bounding box (bbox) coordinates are ordered west, south, east, north—that is, minimum longitude, minimum latitude, maximum longitude, maximum latitude.
+Collections
+•	onshoreboreholeindex — Onshore Borehole Index data, for ground investigation (GI).
+•	agsboreholeindex — Borehole data in AGS format.
+•	Choice a limit, if not added it default to ten.
+
+
+
+Python Resources for Geotechnical Engineering / Geology 
+Notes:
+1.	As official online document include enough information this document only includes links to them resources. 
+2.	These are all to be used with standard python libraries i.e numpy, pandas, 
+
+ Coordinate changing (Pyproj)
+Useful to changing coordinates i.e. northing and easting to lat and long and vice versa. Decimal points can create a small error for these.
+example:
+t = Transformer.from_crs("epsg:4326", "epsg:27700", always=True)
+x_cord, y_cord = t.transform(x_vals, y_vals)
+
+Geospatial Information / Google earth (GeoPandas)
+Geopandas can be useful to work with geospatial data. A example below is how to use it to analyse google earth data. They must be in .kml type/
+import os
+import geopandas as gpd 
+import pandas as pd
+import shapely.wkt as wkt # this may not be needed
+
+GI_Data = os.path.abspath("GI_Data.kml") # input data
+
+GI_df = gpd.read_file(GI_Data, driver="KML")   # driver name is "KML"
+
+print("Number of rows & columns in GeoDataFrame:",GI_df.shape)
+print("Column Names:", GI_df.columns)
+print(GI_df.info())
+print(GI_df.isnull().sum())
+
+A good blog explaining python for google earth can be found here.
+
+Using python for AGS data (AGS4)
+A useful library to analysis AGS data without OpenGround to get clean pandas like table.
+
+
+ Using python for AutoCAD (pyautocad)
+Please see example scripts to get better understanding for AutoCAD. Note sometimes it can have issues connecting with AutoCAD so having some error handling will help.
+checking if autocad connection works
+from pyautocad import Autocad
+
+print("START")
+try:
+    # do not create AutoCAD if not running
+    cad = Autocad(create_if_not_exists=False)
+    print("Autocad object:", cad)
+    cad.prompt("Hello,World\n")
+    print("prompt() called")
+    doc = cad.ActiveDocument
+    print("ActiveDocument:", bool(doc))
+    try:
+        ms = doc.ModelSpace
+        print("ModelSpace available")
+    except Exception as e:
+        print("ModelSpace error:", e)
+except Exception as e:
+    print("Connection ERROR:", e)
+print("END")
+
+ 
