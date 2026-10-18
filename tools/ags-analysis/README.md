@@ -4,6 +4,8 @@
 
 High-level look at an **AGS4** ground investigation data file: what data is in it and what it looks like, without OpenGround or gINT.
 
+**AGS4 files only.** AGS3 is not supported.
+
 For a more detailed analysis (strata summary, SPT by stratum, plots, exports), see [unchecked/ags-analysis](../../unchecked/ags-analysis/README.md). That one is AI-written and not yet reviewed.
 
 ## Files

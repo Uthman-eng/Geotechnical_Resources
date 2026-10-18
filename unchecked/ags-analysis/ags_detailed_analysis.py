@@ -3,7 +3,7 @@
 Check the logic and results before relying on them.
 Reviewed by: ____________   Date: ____________
 
-Detailed analysis of an AGS4 ground investigation data file.
+Detailed analysis of an AGS4 ground investigation data file (AGS4 only, not AGS3).
 (For a quick high-level look, use ../../tools/ags-analysis/ags_summary.py)
 
 What it does:
@@ -122,10 +122,15 @@ def spt_summary(ispt):
 
 
 def plot_spt(ispt, out_path):
-    import matplotlib.pyplot as plt
+    try:
+        import matplotlib.pyplot as plt
+    except ImportError:
+        print("matplotlib not installed - skipping plot (pip install matplotlib)")
+        return False
 
     fig, ax = plt.subplots(figsize=(6, 8))
     for loca_id, df in ispt.groupby("LOCA_ID"):
+        df = df.sort_values("ISPT_TOP")  # join points in depth order, not file order
         ax.plot(df["ISPT_NVAL"], df["ISPT_TOP"], "o-", label=loca_id)
     ax.set_xlim(left=0)
     ax.set_ylim(ispt["ISPT_TOP"].max() * 1.05, 0)  # depth increasing downwards from 0
@@ -138,6 +143,7 @@ def plot_spt(ispt, out_path):
     fig.tight_layout()
     fig.savefig(out_path, dpi=150)
     plt.close(fig)
+    return True
 
 
 def main():
@@ -178,11 +184,16 @@ def main():
             ispt = assign_strata_to_spt(ispt, t["GEOL"])
             print_heading("SPT N VALUES BY STRATUM")
             print(spt_summary(ispt).to_string())
+            unmatched = ispt[ispt["stratum"].isna()]
+            if not unmatched.empty:
+                print(f"\nWARNING: {len(unmatched)} SPT(s) not matched to a stratum "
+                      "(below the logged strata, or no GEOL for that hole) - not in the table above:")
+                print(unmatched[["LOCA_ID", "ISPT_TOP", "ISPT_NVAL"]].to_string(index=False))
         ispt.to_csv(out / f"{stem}_spt.csv", index=False)
         if PLOT_SPT:
             png = out / f"{stem}_spt_vs_depth.png"
-            plot_spt(ispt, png)
-            print(f"-> saved {png}")
+            if plot_spt(ispt, png):
+                print(f"-> saved {png}")
 
     if EXPORT_EXCEL:
         xlsx = out / f"{stem}_all_groups.xlsx"
